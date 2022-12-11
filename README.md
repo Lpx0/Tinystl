@@ -3,7 +3,7 @@
 
 # Tinystl性能测试:
 
-## 测试环境: Windows 10 & VS2019 & release模式
+## 测试环境: Windows10 & VS2019 & release模式
 
 ### 测试结果:
 
@@ -76,9 +76,9 @@
 |std::deque\<int\>|1e6|20|
 |std::deque\<int\>|1e7|247|
 
-此处性能差距在于deque内部实现不同，自己实现的deque是预先分配内存, 同样条件下内存占用大。
 
-#### （4）:list\<int\>
+
+#### (4):list\<int\>
 ```C++
    //TinySTL::list<int> list;
    std::list<int> list;
@@ -88,5 +88,42 @@
    TinySTL::Profiler::ProfilerInstance::finish();
    TinySTL::Profiler::ProfilerInstance::dumpDuringTime();
 ```
+| container | quantity | time(ms) |
+|---|---|---|
+|TinySTL::list\<int\>|1e5|1.9|
+|TinySTL::list\<int\>|1e6|17|
+|TinySTL::list\<int\>|1e7|147|
+|std::list\<int\>|1e5|7.2|
+|std::list\<int\>|1e6|83|
+|std::list\<int\>|1e7|667|
 
+#### (5):unordered_set\<int\>
+```C++
+    TinySTL::Unordered_set<int> ust(10);
+    //std::unordered_set<int> ust(10);
+    const int insert_count = 1e6;
+    const int query_count = 1e8;
+    //calculate total insert time
+    TinySTL::Profiler::ProfilerInstance::start();
+    for (int i = 0; i != insert_count; ++i) {
+        ust.insert(i);//per insert time
+    }
+    TinySTL::Profiler::ProfilerInstance::finish();
+    TinySTL::Profiler::ProfilerInstance::dumpDuringTime();
 
+    //calculate total query time
+    TinySTL::Profiler::ProfilerInstance::start();
+    for (int i = 0; i != query_count; ++i) {
+        ust.count(i);//per query time
+    }
+    TinySTL::Profiler::ProfilerInstance::finish();
+    TinySTL::Profiler::ProfilerInstance::dumpDuringTime();
+```
+| container | quantity | insert time(ms) | query time(ms)|
+|---|---|---|---|
+|TinySTL::unordered_set\<int\>|1e4/1e8|4.2|42|
+|TinySTL::unordered_set\<int\>|1e5/1e8|80|40|
+|TinySTL::unordered_set\<int\>|1e6/1e8|627|47|
+|std::unordered_set\<int\>|1e4/1e8|1.1|44|
+|std::unordered_set\<int\>|1e5/1e8|15|46|
+|std::unordered_set\<int\>|1e6/1e8|260|42|
