@@ -1,5 +1,5 @@
 # Tinystl
-   基于C++11实现的简易STL标准库，主要实现了vector、string、deque、unordered_set等容器和部分算法
+   基于C++11实现的简易STL标准库，主要实现了vector、string、deque、list、unordered_set等容器和部分算法
 # Tinystl性能测试:
 
 ## 测试环境: Windows10 & VS2019 & release模式
@@ -102,18 +102,16 @@
     //std::unordered_set<int> ust(10);
     const int insert_count = 1e6;
     const int query_count = 1e8;
-    //calculate total insert time
     TinySTL::Profiler::ProfilerInstance::start();
     for (int i = 0; i != insert_count; ++i) {
-        ust.insert(i);//per insert time
+        ust.insert(i);
     }
     TinySTL::Profiler::ProfilerInstance::finish();
     TinySTL::Profiler::ProfilerInstance::dumpDuringTime();
 
-    //calculate total query time
     TinySTL::Profiler::ProfilerInstance::start();
     for (int i = 0; i != query_count; ++i) {
-        ust.count(i);//per query time
+        ust.count(i);
     }
     TinySTL::Profiler::ProfilerInstance::finish();
     TinySTL::Profiler::ProfilerInstance::dumpDuringTime();
