@@ -29,14 +29,6 @@ namespace TinySTL {
 		friend bool operator== (const stack<T, Container>& lhs, const stack<T, Container>& rhs);
 		template <class T, class Container>
 		friend bool operator!= (const stack<T, Container>& lhs, const stack<T, Container>& rhs);
-		//template <class T, class Container>
-		//friend bool operator<  (const stack<T, Container>& lhs, const stack<T, Container>& rhs);
-		//template <class T, class Container>
-		//friend bool operator<= (const stack<T, Container>& lhs, const stack<T, Container>& rhs);
-		//template <class T, class Container>
-		//friend bool operator>  (const stack<T, Container>& lhs, const stack<T, Container>& rhs);
-		//template <class T, class Container>
-		//friend bool operator>= (const stack<T, Container>& lhs, const stack<T, Container>& rhs);
 		template <class T, class Container>
 		friend void swap(stack<T, Container>& x, stack<T, Container>& y);
 	};
@@ -52,21 +44,5 @@ namespace TinySTL {
 	void swap(stack<T, Container>& x, stack<T, Container>& y) {
 		x.swap(y);
 	}
-	//template <class T, class Container>
-	//bool operator<  (const stack<T, Container>& lhs, const stack<T, Container>& rhs){
-	//	return lhs.container_ < rhs.container_;
-	//}
-	//template <class T, class Container>
-	//bool operator<= (const stack<T, Container>& lhs, const stack<T, Container>& rhs){
-	//	return lhs.container_ <= rhs.container_;
-	//}
-	//template <class T, class Container>
-	//bool operator>(const stack<T, Container>& lhs, const stack<T, Container>& rhs){
-	//	return lhs.container_ > rhs.container_;
-	//}
-	//template <class T, class Container>
-	//bool operator>= (const stack<T, Container>& lhs, const stack<T, Container>& rhs){
-	//	return lhs.container_ >= rhs.container_;
-	//}
 }
 #endif
