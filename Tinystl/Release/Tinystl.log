@@ -1,0 +1,40 @@
+﻿  Alloc.cpp
+  String.cpp
+  StringTest.cpp
+C:\Users\Lin Peixian\source\repos\Tinystl\Tinystl\Test\StringTest.cpp(312,14): warning C4834: 放弃具有 "nodiscard" 属性的函数的返回值
+  VectorTest.cpp
+C:\Users\Lin Peixian\source\repos\Tinystl\Tinystl\Detail\Vector.cpp(58,9): warning C4018: “<”: 有符号/无符号不匹配
+C:\Users\Lin Peixian\source\repos\Tinystl\Tinystl\Detail\Vector.cpp(57): message : 在编译 类 模板 成员函数“void TinySTL::vector<int,TinySTL::allocator<T>>::resize(TinySTL::vector<T,TinySTL::allocator<T>>::size_type,int)”时
+          with
+          [
+              T=int
+          ]
+C:\Users\Lin Peixian\source\repos\Tinystl\Tinystl\Test\VectorTest.cpp(84): message : 查看对正在编译的函数 模板 实例化“void TinySTL::vector<int,TinySTL::allocator<T>>::resize(TinySTL::vector<T,TinySTL::allocator<T>>::size_type,int)”的引用
+          with
+          [
+              T=int
+          ]
+C:\Users\Lin Peixian\source\repos\Tinystl\Tinystl\Test\VectorTest.cpp(22): message : 查看对正在编译的 类 模板 实例化“TinySTL::vector<int,TinySTL::allocator<T>>”的引用
+          with
+          [
+              T=int
+          ]
+C:\Users\Lin Peixian\source\repos\Tinystl\Tinystl\Detail\Vector.cpp(62,14): warning C4018: “>”: 有符号/无符号不匹配
+C:\Users\Lin Peixian\source\repos\Tinystl\Tinystl\Detail\Vector.cpp(62,28): warning C4018: “<=”: 有符号/无符号不匹配
+C:\Users\Lin Peixian\source\repos\Tinystl\Tinystl\Detail\Vector.cpp(66,14): warning C4018: “>”: 有符号/无符号不匹配
+C:\Users\Lin Peixian\source\repos\Tinystl\Tinystl\Detail\Vector.cpp(80,9): warning C4018: “<=”: 有符号/无符号不匹配
+C:\Users\Lin Peixian\source\repos\Tinystl\Tinystl\Detail\Vector.cpp(79): message : 在编译 类 模板 成员函数“void TinySTL::vector<int,TinySTL::allocator<T>>::reserve(TinySTL::vector<T,TinySTL::allocator<T>>::size_type)”时
+          with
+          [
+              T=int
+          ]
+C:\Users\Lin Peixian\source\repos\Tinystl\Tinystl\Test\VectorTest.cpp(92): message : 查看对正在编译的函数 模板 实例化“void TinySTL::vector<int,TinySTL::allocator<T>>::reserve(TinySTL::vector<T,TinySTL::allocator<T>>::size_type)”的引用
+          with
+          [
+              T=int
+          ]
+  Tinystl.cpp
+C:\Users\Lin Peixian\source\repos\Tinystl\Tinystl\Tinystl.cpp(29,13): error C2371: “whore”: 重定义；不同的基类型
+C:\Users\Lin Peixian\source\repos\Tinystl\Tinystl\Tinystl.cpp(27): message : 参见“whore”的声明
+C:\Users\Lin Peixian\source\repos\Tinystl\Tinystl\Tinystl.cpp(29,13): error C2512: “Brothel”: 没有合适的默认构造函数可用
+C:\Users\Lin Peixian\source\repos\Tinystl\Tinystl\Tinystl.cpp(14,7): message : 参见“Brothel”的声明
