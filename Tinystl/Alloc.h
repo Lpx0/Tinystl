@@ -6,17 +6,17 @@
 namespace TinySTL {
 
 	/*
-	**¿Õ¼äÅäÖÃÆ÷£¬ÒÔ×Ö½ÚÊıÎªµ¥Î»·ÖÅä
-	**ÄÚ²¿Ê¹ÓÃ
+	**ç©ºé—´é…ç½®å™¨ï¼Œä»¥å­—èŠ‚æ•°ä¸ºå•ä½åˆ†é…
+	**å†…éƒ¨ä½¿ç”¨
 	*/
 	class alloc {
 	private:
-		enum EAlign { ALIGN = 8 };//Ğ¡ĞÍÇø¿éµÄÉÏµ÷±ß½ç
-		enum EMaxBytes { MAXBYTES = 128 };//Ğ¡ĞÍÇø¿éµÄÉÏÏŞ£¬³¬¹ıµÄÇø¿éÓÉmalloc·ÖÅä
-		enum ENFreeLists { NFREELISTS = (EMaxBytes::MAXBYTES / EAlign::ALIGN) };//free-listsµÄ¸öÊı
-		enum ENObjs { NOBJS = 20 };//Ã¿´ÎÔö¼ÓµÄ½ÚµãÊı
+		enum EAlign { ALIGN = 8 };//å°å‹åŒºå—çš„ä¸Šè°ƒè¾¹ç•Œ
+		enum EMaxBytes { MAXBYTES = 1024 };//å°å‹åŒºå—çš„ä¸Šé™ï¼Œè¶…è¿‡çš„åŒºå—ç”±mallocåˆ†é…
+		enum ENFreeLists { NFREELISTS = (EMaxBytes::MAXBYTES / EAlign::ALIGN) };//free-listsçš„ä¸ªæ•°
+		enum ENObjs { NOBJS = 20 };//æ¯æ¬¡å¢åŠ çš„èŠ‚ç‚¹æ•°
 	private:
-		//free-listsµÄ½Úµã¹¹Ôì
+		//free-listsçš„èŠ‚ç‚¹æ„é€ 
 		union obj {
 			union obj* next;
 			char client[1];
@@ -24,22 +24,22 @@ namespace TinySTL {
 
 		static obj* free_list[ENFreeLists::NFREELISTS];
 	private:
-		static char* start_free;//ÄÚ´æ³ØÆğÊ¼Î»ÖÃ
-		static char* end_free;//ÄÚ´æ³Ø½áÊøÎ»ÖÃ
+		static char* start_free;//å†…å­˜æ± èµ·å§‹ä½ç½®
+		static char* end_free;//å†…å­˜æ± ç»“æŸä½ç½®
 		static size_t heap_size;//
 	private:
-		//½«bytesÉÏµ÷ÖÁ8µÄ±¶Êı
+		//å°†bytesä¸Šè°ƒè‡³8çš„å€æ•°
 		static size_t ROUND_UP(size_t bytes) {
 			return ((bytes + EAlign::ALIGN - 1) & ~(EAlign::ALIGN - 1));
 		}
-		//¸ù¾İÇø¿é´óĞ¡£¬¾ö¶¨Ê¹ÓÃµÚnºÅfree-list£¬n´Ó0¿ªÊ¼¼ÆËã
+		//æ ¹æ®åŒºå—å¤§å°ï¼Œå†³å®šä½¿ç”¨ç¬¬nå·free-listï¼Œnä»0å¼€å§‹è®¡ç®—
 		static size_t FREELIST_INDEX(size_t bytes) {
 			return (((bytes)+EAlign::ALIGN - 1) / EAlign::ALIGN - 1);
 		}
-		//·µ»ØÒ»¸ö´óĞ¡ÎªnµÄ¶ÔÏó£¬²¢¿ÉÄÜ¼ÓÈë´óĞ¡ÎªnµÄÆäËûÇø¿éµ½free-list
+		//è¿”å›ä¸€ä¸ªå¤§å°ä¸ºnçš„å¯¹è±¡ï¼Œå¹¶å¯èƒ½åŠ å…¥å¤§å°ä¸ºnçš„å…¶ä»–åŒºå—åˆ°free-list
 		static void* refill(size_t n);
-		//ÅäÖÃÒ»´ó¿é¿Õ¼ä£¬¿ÉÈİÄÉnobjs¸ö´óĞ¡ÎªsizeµÄÇø¿é
-		//Èç¹ûÅäÖÃnobjs¸öÇø¿éÓĞËù²»±ã£¬nobjs¿ÉÄÜ»á½µµÍ
+		//é…ç½®ä¸€å¤§å—ç©ºé—´ï¼Œå¯å®¹çº³nobjsä¸ªå¤§å°ä¸ºsizeçš„åŒºå—
+		//å¦‚æœé…ç½®nobjsä¸ªåŒºå—æœ‰æ‰€ä¸ä¾¿ï¼Œnobjså¯èƒ½ä¼šé™ä½
 		static char* chunk_alloc(size_t size, size_t& nobjs);
 
 	public:
