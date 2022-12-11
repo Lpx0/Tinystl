@@ -107,7 +107,7 @@ namespace TinySTL {
 				Unordered_set<Key, Hash, KeyEqual, Allocator>& rhs);
 	};
 
-}//end of namespace TinySTL
+}
 
 #include "Detail\Unordered_set.cpp"
 #endif
