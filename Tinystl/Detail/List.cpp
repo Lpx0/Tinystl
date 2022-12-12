@@ -35,7 +35,7 @@ namespace TinySTL {
 		bool operator !=(const listIterator<T>& lhs, const listIterator<T>& rhs) {
 			return !(lhs == rhs);
 		}
-	}//end of Detail namespace
+	}
 
 	template<class T>
 	void list<T>::insert_aux(iterator position, size_type n, const T& val, std::true_type) {
