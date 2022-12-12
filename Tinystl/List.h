@@ -12,7 +12,6 @@ namespace TinySTL {
 	template<class T>
 	class list;
 	namespace Detail {
-		//the class of node
 		template<class T>
 		struct node {
 			T data;
@@ -25,7 +24,7 @@ namespace TinySTL {
 				return data == n.data && prev == n.prev && next == n.next && container == n.container;
 			}
 		};
-		//the class of list iterator
+		
 		template<class T>
 		struct listIterator :public iterator<bidirectional_iterator_tag, T> {
 			template<class T>
@@ -48,7 +47,7 @@ namespace TinySTL {
 			template<class T>
 			friend bool operator !=(const listIterator<T>& lhs, const listIterator<T>& rhs);
 		};
-	}//end of namespace
+	}
 
 
 	//the class of list
@@ -136,7 +135,7 @@ namespace TinySTL {
 		friend bool operator== (const list<T>& lhs, const list<T>& rhs);
 		template <class T>
 		friend bool operator!= (const list<T>& lhs, const list<T>& rhs);
-	};//end of List
+	};
 }
 
 #include "Detail\List.cpp"
