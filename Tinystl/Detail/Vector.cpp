@@ -4,7 +4,6 @@
 #include<cassert>
 
 namespace TinySTL {
-	//***********************构造，复制，析构相关***********************
 	template<class T, class Alloc>
 	vector<T, Alloc>::~vector() {
 		destroyAndDeallocateAll();
@@ -20,7 +19,7 @@ namespace TinySTL {
 	template<class T, class Alloc>
 	template<class InputIterator>
 	vector<T, Alloc>::vector(InputIterator first, InputIterator last) {
-		//处理指针和数字间的区别的函数
+		//澶勭悊鎸囬拡鍜屾暟瀛楅棿鐨勫尯鍒殑鍑芥暟
 		vector_aux(first, last, typename std::is_integral<InputIterator>::type());
 	}
 	template<class T, class Alloc>
@@ -52,7 +51,7 @@ namespace TinySTL {
 		}
 		return *this;
 	}
-	//*************和容器的容量相关******************************
+	
 	template<class T, class Alloc>
 	void vector<T, Alloc>::resize(size_type n, value_type val) {
 		if (n < size()) {
@@ -87,16 +86,14 @@ namespace TinySTL {
 		finish_ = newFinish;
 		endOfStorage_ = start_ + n;
 	}
-	//***************修改容器的相关操作**************************
+
 	template<class T, class Alloc>
 	typename vector<T, Alloc>::iterator vector<T, Alloc>::erase(iterator position) {
 		return erase(position, position + 1);
 	}
 	template<class T, class Alloc>
 	typename vector<T, Alloc>::iterator vector<T, Alloc>::erase(iterator first, iterator last) {
-		//尾部残留对象数
 		difference_type lenOfTail = end() - last;
-		//删去的对象数目
 		difference_type lenOfRemoved = last - first;
 		finish_ = finish_ - lenOfRemoved;
 		for (; lenOfTail != 0; --lenOfTail) {
@@ -142,8 +139,8 @@ namespace TinySTL {
 		InputIterator first,
 		InputIterator last,
 		std::false_type) {
-		difference_type locationLeft = endOfStorage_ - finish_; // the size of left storage
-		difference_type locationNeed = distance(first, last);//last - first;
+		difference_type locationLeft = endOfStorage_ - finish_; 
+		difference_type locationNeed = distance(first, last);
 
 		if (locationLeft >= locationNeed) {
 			if (finish_ - position > locationNeed) {
@@ -166,13 +163,12 @@ namespace TinySTL {
 	template<class Integer>
 	void vector<T, Alloc>::insert_aux(iterator position, Integer n, const value_type& value, std::true_type) {
 		assert(n != 0);
-		difference_type locationLeft = endOfStorage_ - finish_; // the size of left storage
+		difference_type locationLeft = endOfStorage_ - finish_; 
 		difference_type locationNeed = n;
 
 		if (locationLeft >= locationNeed) {
 			auto tempPtr = end() - 1;
-			for (; tempPtr - position >= 0; --tempPtr) {//move the [position, finish_) back
-				//*(tempPtr + locationNeed) = *tempPtr;//bug
+			for (; tempPtr - position >= 0; --tempPtr) {
 				construct(tempPtr + locationNeed, *tempPtr);
 			}
 			TinySTL::uninitialized_fill_n(position, n, value);
@@ -201,7 +197,7 @@ namespace TinySTL {
 	void vector<T, Alloc>::push_back(const value_type& value) {
 		insert(end(), value);
 	}
-	//***********逻辑比较操作相关*******************
+	
 	template<class T, class Alloc>
 	bool vector<T, Alloc>::operator == (const vector& v)const {
 		if (size() != v.size()) {
@@ -223,7 +219,6 @@ namespace TinySTL {
 	}
 	template<class T, class Alloc>
 	bool operator == (const vector<T, Alloc>& v1, const vector<T, Alloc>& v2) {
-		//return v1 == v2;
 		return v1.operator==(v2);
 	}
 	template<class T, class Alloc>
@@ -232,8 +227,6 @@ namespace TinySTL {
 	}
 	template<class T, class Alloc>
 	void vector<T, Alloc>::shrink_to_fit() {
-		//dataAllocator::deallocate(finish_, endOfStorage_ - finish_);
-		//endOfStorage_ = finish_;
 		T* t = (T*)dataAllocator::allocate(size());
 		finish_ = TinySTL::uninitialized_copy(start_, finish_, t);
 		dataAllocator::deallocate(start_, capacity());
