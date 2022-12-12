@@ -1,5 +1,5 @@
 # Tinystl
-   基于C++11实现的简易STL标准库，主要实现了vector、string、deque、list、unordered_set等容器和部分算法
+   基于C++11实现的简易STL标准库，主要实现了vector、string、deque、list、unordered_set和queue等容器和部分算法
 # Tinystl性能测试:
 
 ## 测试环境: Windows10 & VS2019 & release模式
@@ -124,3 +124,5 @@
 |std::unordered_set\<int\>|1e4/1e8|1.1|44|
 |std::unordered_set\<int\>|1e5/1e8|15|46|
 |std::unordered_set\<int\>|1e6/1e8|260|42|
+
+
