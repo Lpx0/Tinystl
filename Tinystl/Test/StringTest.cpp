@@ -20,7 +20,7 @@ namespace TinySTL {
 			tsStr s6(10, 'z');
 			assert(TinySTL::Test::container_equal(s5, s6));
 			
-			char arr[] = "linpeixian love cpp";
+			char arr[] = "I love cpp";
 			stdStr s7(std::begin(arr), std::end(arr));
 			tsStr s8(std::begin(arr), std::end(arr));
 			assert(TinySTL::Test::container_equal(s7, s8));
