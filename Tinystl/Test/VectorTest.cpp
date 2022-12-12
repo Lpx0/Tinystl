@@ -7,8 +7,8 @@ namespace TinySTL {
 
 		void testCase1() {
 			
-			stdVec<TinySTL::string> v1(10, "zxh");
-			tsVec<TinySTL::string> v2(10, "zxh");
+			stdVec<TinySTL::string> v1(10, "lpx");
+			tsVec<TinySTL::string> v2(10, "lpx");
 			assert(TinySTL::Test::container_equal(v1, v2));
 
 			stdVec<TinySTL::string> v3(10);
