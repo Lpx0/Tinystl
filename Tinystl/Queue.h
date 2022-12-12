@@ -6,7 +6,6 @@
 #include "Vector.h"
 
 namespace TinySTL {
-	//class of queue
 	template<class T, class Container = TinySTL::deque<T>>
 	class queue {
 	public:
@@ -51,7 +50,7 @@ namespace TinySTL {
 	void swap(queue<T, Container>& x, queue<T, Container>& y) {
 		TinySTL::swap(x.container_, y.container_);
 	}
-	//class of priority_queue
+	
 	template <class T, class Container = TinySTL::vector<T>,
 		class Compare = TinySTL::less<typename Container::value_type>>
 		class priority_queue {
