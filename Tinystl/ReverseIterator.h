@@ -124,7 +124,7 @@ namespace TinySTL {
 		friend typename reverse_iterator_t<Iterator>::difference_type operator- (
 			const reverse_iterator_t<Iterator>& lhs,
 			const reverse_iterator_t<Iterator>& rhs);
-	};// end of reverse_iterator_t
+	};
 
 	template<class Iterator>
 	reverse_iterator_t<Iterator>& reverse_iterator_t<Iterator>::operator += (difference_type n) {
