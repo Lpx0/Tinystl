@@ -9,7 +9,6 @@
 #include <cstring>
 
 namespace TinySTL {
-	//the class of string
 	class string {
 	public:
 		typedef char			value_type;
@@ -169,10 +168,9 @@ namespace TinySTL {
 		int compare(size_t pos, size_t len, const char* s, size_t n) const;
 	private:
 		void moveData(string& str);
-		//插入时空间不足的情况
+		//鎻掑叆鏃剁┖闂翠笉瓒崇殑鎯呭喌
 		template<class InputIterator>
 		iterator insert_aux_copy(iterator p, InputIterator first, InputIterator last);
-		//插入时空间不足的情况
 		iterator insert_aux_filln(iterator p, size_t n, value_type c);
 
 		size_type getNewCapacity(size_type len)const;
@@ -221,7 +219,7 @@ namespace TinySTL {
 
 	template<class InputIterator>
 	string::string(InputIterator first, InputIterator last) {
-		//处理指针和数字间的区别的函数
+		//澶勭悊鎸囬拡鍜屾暟瀛楅棿鐨勫尯鍒殑鍑芥暟
 		string_aux(first, last, typename std::is_integral<InputIterator>::type());
 	}
 	template <class InputIterator>
