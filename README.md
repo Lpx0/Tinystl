@@ -2,7 +2,7 @@
    基于C++11实现的简易STL标准库，主要实现了vector、string、deque、list、unordered_set和queue等容器和部分算法
 # Tinystl性能测试:
 
-## 测试环境: Windows10 & VS2019 & release模式
+## 测试环境: Windows10 & VS2019 & release模式(O2优化)
 
 ### 测试结果:
 
