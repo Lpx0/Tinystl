@@ -10,7 +10,6 @@ namespace TinySTL {
 	template<class T, class Alloc = allocator<T>>
 	class deque;
 	namespace Detail {
-		//class of deque iterator
 		template<class T>
 		class dq_iter :public iterator<bidirectional_iterator_tag, T> {
 		private:
@@ -60,9 +59,8 @@ namespace TinySTL {
 			template<class T>
 			friend void swap(dq_iter<T>& lhs, dq_iter<T>& rhs);
 		};
-	}// end of Detail namespace
+	}
 
-	//class of deque
 	template<class T, class Alloc>
 	class deque {
 	private:
