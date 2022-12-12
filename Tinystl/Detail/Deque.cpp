@@ -6,15 +6,14 @@ namespace TinySTL {
 	namespace Detail {
 		template<class T>
 		dq_iter<T>& dq_iter<T>::operator ++() {
-			if (cur_ != getBuckTail(mapIndex_))//+1后还在同一个桶里
+			if (cur_ != getBuckTail(mapIndex_))
 				++cur_;
-			else if (mapIndex_ + 1 < container_->mapSize_) {//+1后还在同一个map里
+			else if (mapIndex_ + 1 < container_->mapSize_) {
 				++mapIndex_;
 				cur_ = getBuckHead(mapIndex_);
 			}
-			else {//+1后跳出了map
+			else {
 				mapIndex_ = container_->mapSize_;
-				//cur_ = container_->map_[mapIndex_] + getBuckSize();//指向map_[mapSize_-1]的尾的下一个位置
 				cur_ = container_->map_[mapIndex_];
 			}
 			return *this;
@@ -27,15 +26,15 @@ namespace TinySTL {
 		}
 		template<class T>
 		dq_iter<T>& dq_iter<T>::operator --() {
-			if (cur_ != getBuckHead(mapIndex_))//当前不指向桶头
+			if (cur_ != getBuckHead(mapIndex_))
 				--cur_;
-			else if (mapIndex_ - 1 >= 0) {//-1后还在map里面
+			else if (mapIndex_ - 1 >= 0) {
 				--mapIndex_;
 				cur_ = getBuckTail(mapIndex_);
 			}
 			else {
 				mapIndex_ = 0;
-				cur_ = container_->map_[mapIndex_];//指向map_[0]的头
+				cur_ = container_->map_[mapIndex_];
 			}
 			return *this;
 		}
@@ -67,20 +66,20 @@ namespace TinySTL {
 		void dq_iter<T>::swap(dq_iter& it) {
 			TinySTL::swap(mapIndex_, it.mapIndex_);
 			TinySTL::swap(cur_, it.cur_);
-			//TinySTL::swap(container_, it.container_);
+			
 		}
 		template<class T>
-		dq_iter<T> operator + (const dq_iter<T>& it, typename dq_iter<T>::difference_type n) {//assume n >= 0
+		dq_iter<T> operator + (const dq_iter<T>& it, typename dq_iter<T>::difference_type n) {
 			dq_iter<T> res(it);
 			auto m = res.getBuckTail(res.mapIndex_) - res.cur_;
-			if (n <= m) {//前进n步仍在同一个桶中
+			if (n <= m) {
 				res.cur_ += n;
 			}
 			else {
-				n = n - m;
+				n = n - m - 1;
 				res.mapIndex_ += (n / it.getBuckSize() + 1);
 				auto p = res.getBuckHead(res.mapIndex_);
-				auto x = n % it.getBuckSize() - 1;
+				auto x = n % it.getBuckSize();
 				res.cur_ = p + x;
 			}
 			return res;
@@ -93,12 +92,12 @@ namespace TinySTL {
 		dq_iter<T> operator - (const dq_iter<T>& it, typename dq_iter<T>::difference_type n) {//assume n >= 0
 			dq_iter<T> res(it);
 			auto m = res.cur_ - res.getBuckHead(res.mapIndex_);
-			if (n <= m)//后退n步还在同一个桶中
+			if (n <= m)
 				res.cur_ -= n;
 			else {
-				n = n - m;
+				n = n - m - 1;
 				res.mapIndex_ -= (n / res.getBuckSize() + 1);
-				res.cur_ = res.getBuckTail(res.mapIndex_) - (n % res.getBuckSize() - 1);
+				res.cur_ = res.getBuckTail(res.mapIndex_) - (n % res.getBuckSize());
 			}
 			return res;
 		}
@@ -129,7 +128,7 @@ namespace TinySTL {
 		size_t dq_iter<T>::getBuckSize()const {
 			return container_->getBuckSize();
 		}
-	}//end of Detail namespace
+	}
 
 	template<class T, class Alloc>
 	bool deque<T, Alloc>::back_full()const {
@@ -185,9 +184,6 @@ namespace TinySTL {
 	}
 	template<class T, class Alloc>
 	void deque<T, Alloc>::clear() {
-		/*for (int i = 0; i != mapSize_; ++i)
-		if (!map_[i])
-		dataAllocator::destroy(map_[i], map_[i] + getBuckSize());*/
 		for (auto i = 0; i != mapSize_; ++i) {
 			for (auto p = map_[i] + 0; !p && p != map_[i] + getBuckSize(); ++p)
 				dataAllocator::destroy(p);
@@ -208,7 +204,7 @@ namespace TinySTL {
 	typename deque<T, Alloc>::reference deque<T, Alloc>::back() {
 		return *(end() - 1);
 	}
-	//由于const迭代器的设计失误故以下三个const函数会丧失const特性
+	
 	template<class T, class Alloc>
 	typename deque<T, Alloc>::const_reference deque<T, Alloc>::operator[] (size_type n) const {
 		return *(begin() + n);
@@ -225,7 +221,7 @@ namespace TinySTL {
 	typename deque<T, Alloc>::iterator deque<T, Alloc>::begin() { return beg_; }
 	template<class T, class Alloc>
 	typename deque<T, Alloc>::iterator deque<T, Alloc>::end() { return end_; }
-	//迭代器设计失误，会使下面两个函数丧失const特性，暂时没有效解决办法故只能先这样妥协
+	
 	template<class T, class Alloc>
 	typename deque<T, Alloc>::iterator deque<T, Alloc>::begin()const { return beg_; }
 	template<class T, class Alloc>
@@ -294,9 +290,6 @@ namespace TinySTL {
 		else if (back_full()) {
 			reallocateAndCopy();
 		}
-		//*end_ = val;
-		//bug fix
-		//2015.01.02
 		TinySTL::construct(end_.cur_, val);
 		++end_;
 	}
@@ -309,9 +302,6 @@ namespace TinySTL {
 			reallocateAndCopy();
 		}
 		--beg_;
-		//*beg_ = val;
-		//bug fix
-		//2015.01.02
 		TinySTL::construct(beg_.cur_, val);
 	}
 	template<class T, class Alloc>
