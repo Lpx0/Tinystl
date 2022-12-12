@@ -2,7 +2,7 @@
 #define _UNORDERED_SET_CPP_
 
 #include "../Unordered_set.h"
-#include <functional>//for bind
+#include <functional>
 
 namespace TinySTL {
 	namespace Detail {
@@ -14,7 +14,6 @@ namespace TinySTL {
 		ust_iterator<Key, ListIterator, Hash, KeyEqual, Allocator>&
 			ust_iterator<Key, ListIterator, Hash, KeyEqual, Allocator>::operator ++() {
 			++iterator_;
-			//如果前进一位后到达了list的末尾，则需要跳转到下一个有item的bucket的list
 			if (iterator_ == container_->buckets_[bucket_index_].end()) {
 				for (;;) {
 					if (bucket_index_ == container_->buckets_.size() - 1) {
@@ -23,7 +22,7 @@ namespace TinySTL {
 					}
 					else {
 						++bucket_index_;
-						if (!(container_->buckets_[bucket_index_].empty())) {//此list不为空
+						if (!(container_->buckets_[bucket_index_].empty())) {
 							iterator_ = container_->buckets_[bucket_index_].begin();
 							break;
 						}
